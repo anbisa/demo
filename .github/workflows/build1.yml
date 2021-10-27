@@ -4,14 +4,14 @@ on:
   pull_request:
   push:
     branches:
-            - main
+        - main
 jobs:
   heroku-deploy:
     runs-on: ubuntu-latest
     steps:
-        name: Check out repository
+      - name: Check out repository
         uses: actions/checkout@v2
-        name: Deploy to Heroku
+      - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: f9e0f502-36f5-460b-8a02-77c1165702fb
