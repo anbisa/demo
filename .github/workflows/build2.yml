@@ -42,4 +42,4 @@ jobs:
         env:
           HEROKU_APP_NAME: umamidrupaldemo
       - name: Push to Heroku
-        run: git push heroku HEAD:main
+        run: git push heroku HEAD:master
