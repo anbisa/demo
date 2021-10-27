@@ -1,0 +1,45 @@
+name: deploy
+on: push
+
+jobs:
+  heroku-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: f9e0f502-36f5-460b-8a02-77c1165702fb
+          heroku_app_name: umamidrupaldemo
+          heroku_email: testemailaptanaprojects@gmail.com
+
+  custom-deploy:
+    # The `needs` is added to bypass:
+    # "Your account has reached its concurrent builds limit"
+    needs: heroku-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Heroku login credentials
+        run: |
+          cat > ~/.netrc <<EOF
+            machine api.heroku.com
+              login testemailaptanaprojects@gmail.com
+              password f9e0f502-36f5-460b-8a02-77c1165702fb
+            machine git.heroku.com
+              login testemailaptanaprojects@gmail.com
+              password f9e0f502-36f5-460b-8a02-77c1165702fb
+          EOF
+        env:
+          HEROKU_API_KEY: f9e0f502-36f5-460b-8a02-77c1165702fb
+          HEROKU_EMAIL: testemailaptanaprojects@gmail.com
+      - name: Add Heroku remote
+        run: heroku git:remote --app umamidrupaldemo
+        env:
+          HEROKU_APP_NAME: umamidrupaldemo
+      - name: Push to Heroku
+        run: git push heroku master
