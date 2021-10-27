@@ -51,6 +51,4 @@
     stack: # optional, default is 
     # If deploying to an organization, then specify the name of the team or organization here
     team: # optional, default is 
-  jobs:
-    release:
-        runs-on: ubuntu-18.04
+
