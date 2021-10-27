@@ -23,3 +23,8 @@
     buildpacks: # optional, default is 
     # Path to an localized env file
     env_file: # optional, default is 
+    on:
+      push:
+        branches:
+        - main
+       - release/*
